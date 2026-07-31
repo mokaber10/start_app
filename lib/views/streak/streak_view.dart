@@ -66,7 +66,7 @@ class _StreakScreenState extends State<StreakScreen> {
     if (_streak >= 60) return '👑 متقن';
     if (_streak >= 21) return '⭐ ملتزم';
     if (_streak >= 7) return '🔰 مبتدئ';
-    return '🔥 $streak يوم متتالية';
+    return '🔥 $_streak يوم متتالية';
   }
 
   String _streakSubtitle() {

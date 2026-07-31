@@ -1,16 +1,15 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class MoodTrackerScreen extends ConsumerStatefulWidget {
+class MoodTrackerScreen extends StatefulWidget {
   const MoodTrackerScreen({super.key});
   @override
-  ConsumerState<MoodTrackerScreen> createState() => _MoodTrackerScreenState();
+  State<MoodTrackerScreen> createState() => _MoodTrackerScreenState();
 }
 
-class _MoodTrackerScreenState extends ConsumerState<MoodTrackerScreen> {
+class _MoodTrackerScreenState extends State<MoodTrackerScreen> {
   String? _selectedMood;
   List<Map<String, dynamic>> _history = [];
 
@@ -59,7 +58,6 @@ class _MoodTrackerScreenState extends ConsumerState<MoodTrackerScreen> {
     await prefs.setString('mood_history', jsonEncode(_history));
   }
 
-  // Get mood color by name
   Color _moodColor(String name) {
     for (final m in _moods) {
       if (m['name'] == name) return m['color'] as Color;
@@ -69,10 +67,7 @@ class _MoodTrackerScreenState extends ConsumerState<MoodTrackerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // Get today's mood from history
     final today = DateTime.now().toIso8601String().substring(0, 10);
-    final todayEntry = _history.where((e) => e['date'] == today).isNotEmpty;
-    final showSelected = todayEntry && _selectedMood != null;
 
     return Scaffold(
       backgroundColor: const Color(0xFF0F0F23),
@@ -87,7 +82,6 @@ class _MoodTrackerScreenState extends ConsumerState<MoodTrackerScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              // Mood grid
               Wrap(
                 spacing: 16,
                 runSpacing: 16,
@@ -128,7 +122,7 @@ class _MoodTrackerScreenState extends ConsumerState<MoodTrackerScreen> {
                 )).toList(),
               ),
 
-              if (showSelected) ...[
+              if (_selectedMood != null) ...[
                 const SizedBox(height: 24),
                 Center(
                   child: Container(
@@ -146,7 +140,6 @@ class _MoodTrackerScreenState extends ConsumerState<MoodTrackerScreen> {
                 ),
               ],
 
-              // History
               if (_history.isNotEmpty) ...[
                 const SizedBox(height: 32),
                 const Text(
@@ -161,7 +154,6 @@ class _MoodTrackerScreenState extends ConsumerState<MoodTrackerScreen> {
                     final date = e['date'] as String;
                     final mood = e['mood'] as String;
                     final emoji = e['emoji'] as String;
-                    // Format date: today vs date
                     final isToday = date == today;
                     final label = isToday ? 'اليوم' : date.substring(5);
 
