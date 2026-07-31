@@ -133,7 +133,8 @@ class _BreathingScreenState extends State<BreathingScreen>
             const SizedBox(height: 16),
 
             // الدائرة الرئيسية
-            AnimatedBuilder(
+            RepaintBoundary(
+              child: AnimatedBuilder(
               animation: _controller,
               builder: (_, __) {
                 final phaseColor = _phaseColors[_phase];
@@ -158,8 +159,8 @@ class _BreathingScreenState extends State<BreathingScreen>
                     boxShadow: [
                       BoxShadow(
                         color: phaseColor.withOpacity(0.2),
-                        blurRadius: 60,
-                        spreadRadius: 10,
+                        blurRadius: 35,
+                        spreadRadius: 6,
                       ),
                     ],
                   ),
@@ -205,6 +206,7 @@ class _BreathingScreenState extends State<BreathingScreen>
                   ),
                 );
               },
+            ),
             ),
 
             const SizedBox(height: 48),
