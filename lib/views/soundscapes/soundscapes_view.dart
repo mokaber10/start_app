@@ -29,7 +29,7 @@ class SoundscapesScreen extends StatelessWidget {
             child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
               Text(a['name'] as String, style: const TextStyle(fontSize: 24)),
               const SizedBox(height: 8),
-              Text('undefined مقطع', style: TextStyle(color: Colors.white.withOpacity(0.5), fontSize: 12)),
+              Text('${a['tracks']} مقطع', style: TextStyle(color: Colors.white.withOpacity(0.5), fontSize: 12)),
             ]),
           );
         },

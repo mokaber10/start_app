@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'views/breathing/breathing_view.dart';
 import 'views/mood/mood_tracker_view.dart';
 import 'views/soundscapes/soundscapes_view.dart';
 import 'views/journal/journal_view.dart';
@@ -15,6 +16,7 @@ class StartApp extends StatelessWidget {
     title: 'Start', debugShowCheckedModeBanner: false,
     theme: ThemeData.dark().copyWith(scaffoldBackgroundColor: const Color(0xFF0F0F23), colorScheme: ColorScheme.fromSeed(seedColor: const Color(0xFF6C63FF), brightness: Brightness.dark)),
     home: const HomeScreen(),
+    textDirection: TextDirection.rtl,
   );
 }
 
@@ -31,11 +33,11 @@ class HomeScreen extends StatelessWidget {
   ];
   void _open(BuildContext c, int i) {
     final pages = [
-      null,
+      const BreathingScreen(),
       const MoodTrackerScreen(), const SoundscapesScreen(), const JournalScreen(),
       const StreakScreen(), const CoursesScreen(), const TestsScreen(),
     ];
-    if (i > 0 && pages[i] != null) Navigator.push(c, MaterialPageRoute(builder: (_) => pages[i]!));
+    if (pages[i] != null) Navigator.push(c, MaterialPageRoute(builder: (_) => pages[i]!));
   }
   @override
   Widget build(BuildContext context) => Scaffold(body: SafeArea(child: Padding(
